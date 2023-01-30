@@ -30,13 +30,11 @@ foreach (glob($docx_glob) as $docx_file) {
     $source->load($docx_file);
     $source->tei();
 
-
-    /*
     // finalize with personal xslt
-    $xml = Xt::transformToDoc(
+    $xml = Xt::transformToXml(
         __DIR__ . '/galenus.xsl',
-        $source->dom()
+        $source->dom(),
+        ['filename' => $src_name]
     );
-    */
-    file_put_contents($dst_file, $source->xml());
+    file_put_contents($dst_file, $xml);
 }
