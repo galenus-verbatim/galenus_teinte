@@ -20,7 +20,7 @@ composer u
 # Usage 
 
 ```bash
-php docx_php examples/*.docx
+php docx_tei.php examples/*.docx
 
 info 0.013s. +0.013s. — Docx > tei, user xml template:
     file:///C:/code/teinte_galenus/galenus_tmpl.xml
