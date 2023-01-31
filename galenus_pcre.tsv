@@ -1,2 +1,4 @@
 search	replace	?comment
 
+\[(\d+)\]	<milestone unit="ed2page" n="\1"/>
+\((\d+)\)	<milestone unit="ed1page" n="\1"/>
