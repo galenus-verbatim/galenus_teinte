@@ -15,9 +15,16 @@ Final normalization
     <xsl:text>/</xsl:text>
     <xsl:value-of select="substring-before(substring-after($filename, '.'), '.')"/>
     <xsl:text>/</xsl:text>
-    <xsl:value-of select="substring-before($filename, '-lat')"/>
-    <xsl:text>-grc</xsl:text>
-    <xsl:value-of select="substring-after($filename, '-lat')"/>
+    <xsl:choose>
+      <xsl:when test="contains($filename, '-lat')">
+        <xsl:value-of select="substring-before($filename, '-lat')"/>
+        <xsl:text>-grc</xsl:text>
+        <xsl:value-of select="substring-after($filename, '-lat')"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$filename"/>
+      </xsl:otherwise>
+    </xsl:choose>
     <xsl:text>.xml</xsl:text>
   </xsl:param>
   <!-- load grc -->
