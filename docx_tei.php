@@ -35,7 +35,7 @@ foreach ($argv as $glob) {
     
         // finalize with personal xslt
         $xml = Xt::transformToXml(
-            __DIR__ . '/galenus.xsl',
+            __DIR__ . '/galenusgrc.xsl',
             $source->dom(),
             ['filename' => $src_name]
         );
