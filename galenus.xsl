@@ -69,8 +69,6 @@ Final normalization
     </xsl:variable>
     <ref target="https://www.biusante.parisdescartes.fr/histmed/medica/cote?45674x{$vol_url}">BIU Santé, Médica</ref>
   </xsl:template>
-  <!-- No Bâle ? -->
-  <xsl:template match="tei:biblScope[@unit='ed1vol']"/>
   <!-- body -->
   <xsl:template match="tei:body">
     <body>

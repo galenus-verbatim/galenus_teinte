@@ -69,8 +69,6 @@ Final normalization
     </xsl:variable>
     <ref target="https://www.biusante.parisdescartes.fr/histmed/medica/cote?45674x{$vol_url}">BIU Santé, Médica</ref>
   </xsl:template>
-  <!-- No Bâle ? -->
-  <xsl:template match="tei:biblScope[@unit='ed1vol']"/>
   <!-- body -->
   <xsl:template match="tei:body">
     <body>
@@ -100,10 +98,28 @@ Final normalization
           </xsl:otherwise>
         </xsl:choose>
       </xsl:attribute>
+      <!-- this could be wrong if preoemium, call FG for a hack when you have the case -->
       <xsl:attribute name="n">
-        <xsl:number/>
+        <xsl:number count="tei:div"/>
       </xsl:attribute>
-      <xsl:apply-templates/>
+      <!-- this number is used for transfer of <head> for first chapter in book -->
+      <xsl:variable name="num">
+        <xsl:number count="tei:div"/>
+      </xsl:variable>
+      <xsl:choose>
+        <!-- level book, do not output <head> -->
+        <xsl:when test="$level = 1">
+          <xsl:apply-templates select="node()[not(self::tei:head)]"/>
+        </xsl:when>
+        <!-- first chapter of book, output head of book -->
+        <xsl:when test="$level = 2 and $num = 1">
+          <xsl:apply-templates select="../tei:head"/>
+          <xsl:apply-templates/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates/>
+        </xsl:otherwise>
+      </xsl:choose>
     </div>
   </xsl:template>
   <xsl:template match="tei:pb">
