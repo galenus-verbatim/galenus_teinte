@@ -35,7 +35,7 @@ Final normalization
   <xsl:variable name="subtype1" select=' "book" '/>
   <xsl:variable name="subtype2" select=' "chapter" '/>
   <xsl:variable name="subtype3" select="$grc/tei:TEI/tei:text/tei:body/tei:div/tei:div/tei:div/tei:div/@subtype"/>
-  <xsl:variable name="subtype4" select="$grc/tei:TEI/tei:text/tei:body/tei:div/tei:div/tei:div/tei:div/tei:div/@subtype"/>
+  <xsl:variable name="subtype4" select=' "littera" '/>
   <xsl:variable name="lf" select="'&#10;'"/>
   <xsl:template match="node()|@*" name="copy">
     <xsl:copy>
