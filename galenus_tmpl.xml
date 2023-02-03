@@ -7,14 +7,15 @@
         <title xml:lang="lat">*</title>
         <author>Galen</author>
         <editor>Karl Gottlob Kühn</editor>
-        <funder>Institut Universitaire de France</funder>
+        <funder>Institut universitaire de France and Sorbonne Université</funder>
         <respStmt>
-          <resp>Published the latin translation of Karl Gottlob Kühn translation of Galen</resp>
-          <orgName>Galenus Verbatim, Galenus Latinii funded by the Sorbonne Université</orgName>
-          <persName>Natahalie Rouseau, Sorbonne Université</persName>
+          <resp>Published original versions of the electronic texts</resp>
+          <orgName ref="https://galenus-verbatim.huma-num.fr/">Galenus verbatim, funded by the Institut universitaire de France and Sorbonne Université</orgName>
+          <persName>Nathalie Rousseau, Sorbonne Université</persName>
         </respStmt>
         <respStmt>
-          <resp>Project Manager (Sorbonne Université)</resp>
+          <resp>Editor-in-Chief, Galenus verbatim</resp>
+		  <orgName ref="https://galenus-verbatim.huma-num.fr/">Galenus verbatim, funded by the Institut universitaire de France and Sorbonne Université</orgName>
           <persName>Natahalie Rouseau</persName>
         </respStmt>
         <respStmt>
@@ -22,19 +23,19 @@
           <persName>Frédéric Glorieux</persName>
         </respStmt>
         <respStmt>
-          <resp>Technical Advisor</resp>
+          <resp>Digital Editor, Galenus verbatim</resp>
           <persName>Cahal Taaffe</persName>
         </respStmt>
       </titleStmt>
       <publicationStmt>
-        <authority>Galenus Verbatim, funded by the Institut Universitaire de France</authority>
+        <authority>Galenus verbatim, funded by the Institut universitaire de France and Sorbonne Université</authority>
         <publisher>Sorbonne Université</publisher>
         <pubPlace>Paris</pubPlace>
         <idno type="filename">tlg0***.tlg***.1st1K-grc1.xml</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by-sa/4.0/">Available under a Creative Commons Attribution-ShareAlike 4.0 International License</licence>
         </availability>
-        <date>2022</date>
+        <date>2023</date>
       </publicationStmt>
       <sourceDesc>
         <biblStruct>
