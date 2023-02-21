@@ -78,6 +78,47 @@ Final normalization
       </div>
     </body>
   </xsl:template>
+  
+  <!-- Strange list table -->
+  <xsl:template match="tei:table">
+    <list rend="table">
+      <xsl:copy-of select="@*"/>
+      <xsl:attribute name="rend">
+        <xsl:value-of select="normalize-space(concat('table ', @rend))"/>
+      </xsl:attribute>
+      <xsl:choose>
+        <xsl:when test="tei:row[1][tei:cell[@role='label']]">
+          <item rend="header">
+            <xsl:apply-templates select="tei:row[1]"/>
+          </item>
+          <item>
+            <xsl:apply-templates select="tei:row[position() &gt; 1]"/>
+          </item>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:comment>
+          <item rend="header">
+            
+          </item>
+          </xsl:comment>
+          <item>
+            <xsl:apply-templates/>
+          </item>
+        </xsl:otherwise>
+      </xsl:choose>
+    </list>
+  </xsl:template>
+  <xsl:template match="tei:row">
+    <list rend="row">
+      <xsl:apply-templates/>
+    </list>
+  </xsl:template>
+  <xsl:template match="tei:cell">
+    <item>
+      <xsl:apply-templates/>
+    </item>
+  </xsl:template>
+  
   <!-- put level -->
   <xsl:template match="tei:div">
     <xsl:variable name="level" select="1 + count(ancestor::tei:div)"/>

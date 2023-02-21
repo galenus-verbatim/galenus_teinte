@@ -205,4 +205,42 @@ Final normalization
     </hi>
   </xsl:template>
   <xsl:template match="tei:div/tei:div/tei:head"/>
+  
+  <!-- Strange list table -->
+  <xsl:template match="tei:table">
+    <list rend="table">
+      <xsl:copy-of select="@*"/>
+      <xsl:attribute name="rend">
+        <xsl:value-of select="normalize-space(concat('table ', @rend))"/>
+      </xsl:attribute>
+      <xsl:choose>
+        <xsl:when test="tei:row[1][tei:cell[@role='label']]">
+          <item rend="header">
+            <xsl:apply-templates select="tei:row[1]"/>
+          </item>
+          <item>
+            <xsl:apply-templates select="tei:row[position() &gt; 1]"/>
+          </item>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>&#10;</xsl:text>
+          <xsl:comment><![CDATA[??? <item rend="header"><list rend="row">…</list></item>]]></xsl:comment>
+          <xsl:text>&#10;</xsl:text>
+          <item>
+            <xsl:apply-templates/>
+          </item>
+        </xsl:otherwise>
+      </xsl:choose>
+    </list>
+  </xsl:template>
+  <xsl:template match="tei:row">
+    <list rend="row">
+      <xsl:apply-templates/>
+    </list>
+  </xsl:template>
+  <xsl:template match="tei:cell">
+    <item>
+      <xsl:apply-templates/>
+    </item>
+  </xsl:template>
 </xsl:transform>
