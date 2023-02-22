@@ -3,6 +3,7 @@ composer.lock
 /examples/data/_*
 /examples/out/
 /out/
+/greek/
 /greek/data/_*
 /greek/out/
 /out/
