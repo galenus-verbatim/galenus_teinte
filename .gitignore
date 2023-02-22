@@ -3,6 +3,9 @@ composer.lock
 /examples/data/_*
 /examples/out/
 /out/
+/greek/data/_*
+/greek/out/
+/out/
 
 # generated garbage (especially LaTeX)
 .~*
