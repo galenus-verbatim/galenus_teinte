@@ -72,7 +72,7 @@ Final normalization
   <!-- body -->
   <xsl:template match="tei:body">
     <body>
-      <div n="urn:cts:greekLit:{$filename}" type="edition" xml:lang="lat">
+      <div type="edition" xml:lang="grc" n="urn:cts:greekLit:{$filename}">
         <pb n="{$p1}"/>
         <xsl:apply-templates/>
       </div>
