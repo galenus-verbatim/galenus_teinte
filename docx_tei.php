@@ -32,6 +32,8 @@ foreach ($argv as $glob) {
         Log::info($docx_file . " > " . $dst_file);
         $source->load($docx_file);
         $source->tei();
+        // for debug
+        // file_put_contents($dst_dir. $src_name .'_1.xml', $source->xml());
     
         // finalize with personal xslt
         $xml = Xt::transformToXml(

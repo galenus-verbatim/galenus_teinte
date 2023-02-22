@@ -31,6 +31,8 @@ Final normalization
   <xsl:variable name="grc" select="document($grc_file)"/>
   <!-- store first page number as global -->
   <xsl:variable name="p1" select="$grc/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc//tei:biblScope[@unit='pp']/@from"/>
+  <!-- body/head, it is a book -->
+  <xsl:variable name="body_head" select="count(/tei:TEI/tei:text/tei:body/tei:head)"/>
   <!-- store level 1 div subtype  -->
   <xsl:variable name="subtype1" select=' "book" '/>
   <xsl:variable name="subtype2" select=' "chapter" '/>
@@ -73,14 +75,27 @@ Final normalization
   <xsl:template match="tei:body">
     <body>
       <div type="edition" xml:lang="grc" n="urn:cts:greekLit:{$filename}">
+        <xsl:text>&#10;</xsl:text>
         <pb n="{$p1}"/>
-        <xsl:apply-templates/>
+        <xsl:choose>
+          <xsl:when test="$body_head &gt; 0">
+            <xsl:text>&#10;</xsl:text>
+            <div type="textpart" subtype="book" n="1">
+              <xsl:text>&#10;</xsl:text>
+              <xsl:apply-templates select="node()[not(self::tei:head)]"/>
+              <xsl:text>&#10;</xsl:text>
+            </div>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:apply-templates/>
+          </xsl:otherwise>
+        </xsl:choose>
       </div>
     </body>
   </xsl:template>
   <!-- put level -->
   <xsl:template match="tei:div">
-    <xsl:variable name="level" select="1 + count(ancestor::tei:div)"/>
+    <xsl:variable name="level" select="1 + count(ancestor::tei:div) + $body_head"/>
     <div type="textpart">
       <xsl:attribute name="subtype">
         <xsl:choose>
@@ -113,11 +128,12 @@ Final normalization
         </xsl:when>
         <!-- first chapter of book, output head of book -->
         <xsl:when test="$level = 2 and $num = 1">
+          <xsl:text>&#10;</xsl:text>
           <xsl:apply-templates select="../tei:head"/>
-          <xsl:apply-templates/>
+          <xsl:apply-templates select="node()[not(self::tei:head)]"/>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:apply-templates/>
+          <xsl:apply-templates select="node()[not(self::tei:head)]"/>
         </xsl:otherwise>
       </xsl:choose>
     </div>
@@ -204,7 +220,6 @@ Final normalization
       <xsl:apply-templates/>
     </hi>
   </xsl:template>
-  <xsl:template match="tei:div/tei:div/tei:head"/>
   
   <!-- Strange list table -->
   <xsl:template match="tei:table">
