@@ -67,7 +67,7 @@ Final normalization
       <xsl:value-of select="substring('00', 1, 2 - string-length($vol))"/>
       <xsl:value-of select="$vol"/>
     </xsl:variable>
-    <ref target="https://www.biusante.parisdescartes.fr/histmed/medica/cote?45674x{$vol_url}">BIU Santé, Médica</ref>
+    <ref target="https://www.biusante.parisdescartes.fr/histmed/medica/cote?45674x{$vol_url}">BIU Santé, Medica</ref>
   </xsl:template>
   <!-- body -->
   <xsl:template match="tei:body">
