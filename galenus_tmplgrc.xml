@@ -7,15 +7,15 @@
         <title xml:lang="lat">*</title>
         <author>Galen</author>
         <editor>Karl Gottlob Kühn</editor>
-        <funder>Institut universitaire de France and Sorbonne Université</funder>
+        <funder>Institut universitaire de France</funder>
         <respStmt>
           <resp>Published original versions of the electronic texts</resp>
-          <orgName ref="https://galenus-verbatim.huma-num.fr/">Galenus verbatim, funded by the Institut universitaire de France and Sorbonne Université</orgName>
+          <orgName ref="https://galenus-verbatim.huma-num.fr/">Galenus verbatim, funded by the Institut universitaire de France</orgName>
           <persName>Nathalie Rousseau, Sorbonne Université</persName>
         </respStmt>
         <respStmt>
           <resp>Editor-in-Chief, Galenus verbatim</resp>
-		  <orgName ref="https://galenus-verbatim.huma-num.fr/">Galenus verbatim, funded by the Institut universitaire de France and Sorbonne Université</orgName>
+		  <orgName ref="https://galenus-verbatim.huma-num.fr/">Galenus verbatim, funded by the Institut universitaire de France</orgName>
           <persName>Nathalie Rouseau, Sorbonne Université</persName>
         </respStmt>
         <respStmt>
@@ -28,7 +28,7 @@
         </respStmt>
       </titleStmt>
       <publicationStmt>
-        <authority>Galenus verbatim, funded by the Institut universitaire de France and Sorbonne Université</authority>
+        <authority>Galenus verbatim, funded by the Institut universitaire de France</authority>
         <publisher>Sorbonne Université</publisher>
         <pubPlace>Paris</pubPlace>
         <idno type="filename">tlg0***.tlg***.1st1K-grc1.xml</idno>
