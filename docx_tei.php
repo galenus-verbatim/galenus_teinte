@@ -20,7 +20,7 @@ Filesys::mkdir($dst_dir);
 
 $source = new Docx();
 // local xml template
-$source->user_template(__DIR__ . '/galenus_tmplgrc.xml');
+$source->user_template(__DIR__ . '/galenus_tmpl_grc.xml');
 // regex program to insert
 $source->user_pcre(__DIR__ . '/galenus_pcre.tsv');
 
