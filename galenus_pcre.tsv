@@ -2,3 +2,9 @@ search	replace	?comment
 
 \[(\d+)\]	<milestone unit="ed2page" n="\1"/>
 \((\d+)\)	<milestone unit="ed1page" n="\1"/>
+
+<p[^>]*>(<milestone [^>]*/>)</p>	\1	false para for milestrone
+
+[——\-]\s*</p>\s*(<pb[^>]*/>)\s*<p[^>]*> *([^\s]+) *	\2\n\1	caesura around a page break
+
+</p>\s*(<pb[^/>]*/>)\s*<p( [^>]*)?>	\1	merge <p> around <pb> (galenus specific)
