@@ -31,10 +31,14 @@ foreach ($argv as $glob) {
         $dst_file = $dst_dir. $src_name .'.xml';
         Log::info($docx_file . " > " . $dst_file);
         $source->load($docx_file);
-        $source->tei();
         // for debug
-        // file_put_contents($dst_dir. $src_name .'_1.xml', $source->xml());
-    
+        $source->pkg(); // open the docx
+        $source->teilike(); // apply a first tei layer
+        // file_put_contents($dst_dir. $src_name .'_teilike.xml', $source->xml());
+        $source->pcre(); // apply regex, custom re may break XML
+        // for debug write this step
+        // file_put_contents($dst_dir. $src_name .'_pcre.xml', $source->xml());
+        $source->tmpl();
         // finalize with personal xslt
         $xml = Xt::transformToXml(
             __DIR__ . '/galenusgrc.xsl',

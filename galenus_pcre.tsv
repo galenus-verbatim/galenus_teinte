@@ -5,6 +5,8 @@ search	replace	?comment
 
 <p[^>]*>(<milestone [^>]*/>)</p>	\1	false para for milestrone
 
-[——\-]\s*</p>\s*(<pb[^>]*/>)\s*<p[^>]*> *([^\s]+) *	\2\n\1	caesura around a page break
+[——\-]\s*</p>\s*(<pb[^>]*/>)\s*<p[^>]*> *([^<>\s]+) *	\2\n\1	caesura around a page break, take end of word, but tag  bro-</p><pb/>ken<milestone/>continue => broken<pb/><milestone/>continue
 
-</p>\s*(<pb[^/>]*/>)\s*<p( [^>]*)?>	\1	merge <p> around <pb> (galenus specific)
+</p>\s*(<pb[^/>]*/>)\s*<p( [^>/]*)?>	\1	merge <p> around <pb> (galenus specific), be careful of empty para <p/>
+
+\n\n+	\n
