@@ -9,9 +9,10 @@
         <translator>Karl Gottlob Kühn</translator>
         <funder>Institut universitaire de France and Sorbonne Université</funder>
         <respStmt>
-          <resp>Published original versions of the electronic texts</resp>
+          <resp>Published original versions of the electronic texts. The following text is taken verbatim from the translation of the Galen's Opera Omnia published by Karl Gottlob Kühn
+		  from 1821 to 1830. The texts was prudced from the image of Kühn's edition digitised by Bibliothèque numérique Medica of the BIU Santé using AbbyFineReader 1XXX. </resp>
           <orgName ref="https://galenus-verbatim.huma-num.fr/">Galenus verbatim, funded by the Institut universitaire de France and Sorbonne Université</orgName>
-          <persName>Nathalie Rousseau, Sorbonne Université</persName>
+          <persName>Nathalie Rousseau, Sorbonne Université</persName>F
         </respStmt>
         <respStmt>
           <resp>Editor-in-Chief, Galenus verbatim</resp>
