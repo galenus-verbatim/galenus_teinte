@@ -26,6 +26,7 @@ $source->user_pcre(__DIR__ . '/galenus_pcre.tsv');
 
 // loop on arguments to get files of globs
 foreach ($argv as $glob) {
+    Log::info($glob);
     foreach (glob($glob) as $docx_file) {
         $src_name = pathinfo($docx_file, PATHINFO_FILENAME);
         $dst_file = $dst_dir. $src_name .'.xml';

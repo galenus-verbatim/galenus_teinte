@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/dev/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.stoa.org/epidoc/schema/dev/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader xml:lang="eng">
     <fileDesc>
       <titleStmt>
         <title xml:lang="lat">*</title>
         <author>Galen</author>
-        <translator>Karl Gottlob Kühn</translator>
+        <editor>Karl Gottlob Kühn</editor>
         <funder>Institut universitaire de France and Sorbonne Université</funder>
         <respStmt>
-          <resp>Published original versions of the electronic texts. The following text is taken verbatim from the translation of the Galen's Opera Omnia published by Karl Gottlob Kühn
-		  from 1821 to 1830. The texts was prudced from the image of Kühn's edition digitised by Bibliothèque numérique Medica of the BIU Santé using AbbyFineReader 1XXX. </resp>
+          <resp>Published original versions of the electronic texts. The following text is taken verbatim from the translation of the Galen's Opera Omnia published by Karl Gottlob Kühn from 1821 to 1830. The texts was prudced from the image of Kühn's edition digitised by Bibliothèque numérique Medica of the BIU Santé using AbbyFineReader 1XXX. </resp>
           <orgName ref="https://galenus-verbatim.huma-num.fr/">Galenus verbatim, funded by the Institut universitaire de France and Sorbonne Université</orgName>
-          <persName>Nathalie Rousseau, Sorbonne Université</persName>F
-        </respStmt>
-        <respStmt>
-          <resp>Editor-in-Chief, Galenus verbatim</resp>
-		  <orgName ref="https://galenus-verbatim.huma-num.fr/">Galenus verbatim, funded by the Institut universitaire de France and Sorbonne Université</orgName>
           <persName>Nathalie Rousseau, Sorbonne Université</persName>
         </respStmt>
         <respStmt>
-          <resp>Lead Developer, Optéos</resp>
+          <resp>Editor-in-Chief, Galenus verbatim</resp>
+          <orgName ref="https://galenus-verbatim.huma-num.fr/">Galenus verbatim, funded by the Institut universitaire de France and Sorbonne Université</orgName>
+          <persName>Nathalie Rousseau, Sorbonne Université</persName>
+        </respStmt>
+        <respStmt>
+          <resp>Lead Developer, Université de Genève</resp>
           <persName>Frédéric Glorieux</persName>
         </respStmt>
         <respStmt>
@@ -39,7 +39,26 @@
         <date>2023</date>
       </publicationStmt>
       <sourceDesc>
-        <biblStruct>
+        <biblStruct type="bookSection">
+          <analytic>
+            <title level="a">De anatomicis administrationibus</title>
+            <author><name>Galenus</name></author>
+          </analytic>
+          <monogr>
+            <title level="m">[Opera omnia]</title>
+            <idno type="callNumber">011</idno>
+            <editor><forename>Karl Gottlob</forename><surname>Kühn</surname></editor>
+            <imprint>
+              <pubPlace>Lipsiae</pubPlace>
+              <biblScope unit="volume">2</biblScope>
+              <biblScope unit="page">215-731</biblScope>
+              <publisher>in officina C. Cnoblochii</publisher>
+              <date>1821</date>
+              <note type="url">https://galenus-verbatim.huma-num.fr/tlg0057.tlg011.1st1K-grc1</note>
+            </imprint>
+          </monogr>
+          <series><title level="s">Medicorum Graecorum opera quae exstant [sic]</title></series>
+          <!-- Faire venir l’info du zotero ? -->
           <ref target="https://www.biusante.parisdescartes.fr/histmed/medica/cote?45674x**">BIU Santé, Medica</ref>
         </biblStruct>
       </sourceDesc>
@@ -59,7 +78,6 @@
     </profileDesc>
   </teiHeader>
   <text>
-    <body>
-    </body>
+    <body> </body>
   </text>
 </TEI>
