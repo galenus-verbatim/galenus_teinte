@@ -10,3 +10,6 @@ search	replace	?comment
 </p>\s*(<pb[^/>]*/>)\s*<p( [^>/]*)?>	\1	merge <p> around <pb> (galenus specific), be careful of empty para <p/>
 
 \n\n+	\n
+
+</hi>([\p{L} ]{0,3})<hi>	$1
+<hi>([\p{L} ]{0,3})</hi>	$1

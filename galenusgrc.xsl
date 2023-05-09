@@ -62,14 +62,18 @@ Final normalization
       <xsl:apply-templates select="$grc/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/node()"/>
     </xsl:copy>
   </xsl:template>
-  <!-- rewrite the greek link -->
-  <xsl:template match="tei:sourceDesc/tei:biblStruct/tei:ref">
-    <xsl:variable name="vol" select="normalize-space(../tei:biblScope[@unit='vol'])"/>
-    <xsl:variable name="vol_url">
-      <xsl:value-of select="substring('00', 1, 2 - string-length($vol))"/>
-      <xsl:value-of select="$vol"/>
-    </xsl:variable>
-    <ref target="https://www.biusante.parisdescartes.fr/histmed/medica/cote?45674x{$vol_url}">BIU Santé, Medica</ref>
+  <!-- rewrite the link to digital source for latin -->
+  <xsl:template match="tei:sourceDesc/tei:biblStruct[1]">
+    <xsl:copy>
+      <xsl:copy-of select="@*"/>
+      <xsl:variable name="vol" select="normalize-space(.//tei:biblScope[@unit='vol'])"/>
+      <xsl:variable name="vol_url">
+        <xsl:value-of select="substring('00', 1, 2 - string-length($vol))"/>
+        <xsl:value-of select="$vol"/>
+      </xsl:variable>
+      <xsl:apply-templates select="node()[not(self::tei:ref)]"/>
+      <ref target="https://www.biusante.parisdescartes.fr/histmed/medica/cote?45674x{$vol_url}">BIU Santé, Medica</ref>
+    </xsl:copy>
   </xsl:template>
   <!-- body -->
   <xsl:template match="tei:body">
