@@ -19,6 +19,7 @@ $dst_dir = rtrim($argv[2], '/\\').'/';
 Filesys::mkdir($dst_dir);
 
 $tei = new Tei();
+$tei->template('docx', __DIR__ . '/galenus_tmpl.docx');
 foreach($lines as $tei_file) {
     $tei_file = trim($tei_file);
     if (!$tei_file) continue;
