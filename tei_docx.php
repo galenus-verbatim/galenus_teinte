@@ -3,8 +3,7 @@
 include_once(__DIR__ . '/vendor/autoload.php');
 
 use Psr\Log\LogLevel;
-use Oeuvres\Kit\{Filesys, Log, Xt};
-use Oeuvres\Kit\Logger\{LoggerCli};
+use Oeuvres\Kit\{Filesys, Log, LoggerCli, Xt};
 use Oeuvres\Teinte\Format\{Tei};
 use Oeuvres\Xsl\{Xpack};
 
