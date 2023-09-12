@@ -22,3 +22,4 @@
 # FAIT ../galenus_cts/data/tlg0530/tlg042/tlg0530.tlg042.verbatim-grc1.xml
 # FAIT ../galenus_cts/data/tlg0530/tlg045/tlg0530.tlg045.verbatim-grc1.xml
 
+../galenus_cts/data/tlg0530/tlg031/tlg0530.tlg031.verbatim-grc1.xml
