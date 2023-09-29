@@ -48,7 +48,7 @@ Final normalization
   </xsl:template>
   <xsl:template match="tei:idno">
     <xsl:copy>
-      <xsl:value-of select="@*"/>
+      <xsl:copy-of select="@*"/>
       <xsl:value-of select="$filename"/>
       <xsl:text>.xml</xsl:text>
     </xsl:copy>
