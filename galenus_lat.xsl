@@ -31,6 +31,8 @@ Final normalization
   <xsl:variable name="grc" select="document($grc_file)"/>
   <!-- store first page number as global -->
   <xsl:variable name="p1" select="$grc/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc//tei:biblScope[@unit='pp']/@from"/>
+  <!-- store volume number as global (will bug on big texts) -->
+  <xsl:variable name="vol" select="$grc/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc//tei:biblScope[@unit='vol']"/>
   <!-- body/head, it is a book -->
   <xsl:variable name="body_head" select="count(/tei:TEI/tei:text/tei:body/tei:head)"/>
   <!-- store level 1 div subtype  -->
@@ -80,7 +82,7 @@ Final normalization
     <body>
       <div type="edition" xml:lang="grc" n="urn:cts:greekLit:{$filename}">
         <xsl:text>&#10;</xsl:text>
-        <pb n="{$p1}"/>
+        <pb n="{$vol}.{$p1}"/>
         <xsl:choose>
           <xsl:when test="$body_head &gt; 0">
             <xsl:text>&#10;</xsl:text>
@@ -96,6 +98,12 @@ Final normalization
         </xsl:choose>
       </div>
     </body>
+  </xsl:template>
+  <xsl:template match="processing-instruction()">
+    <xsl:copy>
+      <xsl:apply-templates select="node()|@*"/>
+    </xsl:copy>
+    <xsl:text>&#10;</xsl:text>
   </xsl:template>
   <!-- put level -->
   <xsl:template match="tei:div">
@@ -145,6 +153,8 @@ Final normalization
   <xsl:template match="tei:pb">
     <pb>
       <xsl:attribute name="n">
+        <xsl:value-of select="$vol"/>
+        <xsl:text>.</xsl:text>
         <xsl:value-of select="$p1 + @n - 1"/>
       </xsl:attribute>
     </pb>

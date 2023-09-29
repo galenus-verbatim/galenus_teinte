@@ -3,7 +3,8 @@
 include_once(__DIR__ . '/vendor/autoload.php');
 
 use Psr\Log\LogLevel;
-use Oeuvres\Kit\{Filesys, Log, LoggerCli, Xt};
+use Oeuvres\Kit\{Filesys, Log, Xt};
+use Oeuvres\Kit\Logger\{LoggerCli};
 use Oeuvres\Teinte\Format\{Docx};
 use Oeuvres\Xsl\{Xpack};
 
@@ -15,8 +16,8 @@ if (!isset($argv[1])) {
 // drop $argv[0], $argv[1…] should be file
 array_shift($argv);
 // destination directory for tei files
-$dst_dir = __DIR__ . '/out/';
-Filesys::mkdir($dst_dir);
+$tmp_dir = __DIR__ . '/out/';
+Filesys::mkdir($tmp_dir);
 
 $source = new Docx();
 // local xml template
@@ -29,21 +30,23 @@ foreach ($argv as $glob) {
     Log::info($glob);
     foreach (glob($glob) as $docx_file) {
         $src_name = pathinfo($docx_file, PATHINFO_FILENAME);
-        $dst_file = $dst_dir. $src_name .'.xml';
+        $split = explode('.', $src_name);
+        $dst_file = dirname(__DIR__) . '/galenus_cts/data/' . $split[0] . '/' . $split[1] . '/' . $src_name .'.xml';
+        Filesys::mkdir(dirname($dst_file));
         Log::info($docx_file . " > " . $dst_file);
         $source->load($docx_file);
         // for debug
         $source->pkg(); // open the docx
         $source->teilike(); // apply a first tei layer
-        // file_put_contents($dst_dir. $src_name .'_teilike.xml', $source->xml());
+        file_put_contents($tmp_dir . $src_name .'_teilike.xml', $source->tei());
         $source->pcre(); // apply regex, custom re may break XML
         // for debug write this step
-        // file_put_contents($dst_dir. $src_name .'_pcre.xml', $source->xml());
+        file_put_contents($tmp_dir . $src_name .'_pcre.xml', $source->tei());
         $source->tmpl();
         // finalize with personal xslt
         $xml = Xt::transformToXml(
-            __DIR__ . '/galenusgrc.xsl',
-            $source->dom(),
+            __DIR__ . '/galenus_lat.xsl',
+            $source->teiDoc(),
             ['filename' => $src_name]
         );
         file_put_contents($dst_file, $xml);
