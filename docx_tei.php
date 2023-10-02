@@ -24,7 +24,7 @@ $source = new Docx();
 $source->user_template(__DIR__ . '/galenus_tmpl_lat.xml');
 // regex program to insert
 $source->user_pcre(__DIR__ . '/galenus_pcre.tsv');
-$force = true;
+$force = false;
 // loop on arguments to get files of globs
 foreach ($argv as $glob) {
     Log::info($glob);
@@ -51,6 +51,9 @@ foreach ($argv as $glob) {
             $grc_file = dirname(__DIR__) . '/galenus_cts/data/' . $split[0] . '/' . $split[1] . '/' . str_replace('verbatim-lat', 'verbatim-grc', $src_name)  .'.xml';
         }
         if (!file_exists($grc_file)) {
+            $grc_file = dirname(__DIR__) . '/galenus_cts/data/' . $split[0] . '/' . $split[1] . '/' . str_replace('verbatim-lat1', '1st1K-grc2', $src_name)  .'.xml';
+        }
+        if (!file_exists($grc_file)) {
             echo "[404] $grc_file\n";
             unlink($dst_file);
             continue;
@@ -61,7 +64,7 @@ foreach ($argv as $glob) {
             $source->teiDoc(),
             [
                 'filename' => $src_name,
-                'grc_file' => 'file:///' . $grc_file,
+                'grc_file' => 'file:///' . str_replace('\\', '/', $grc_file),
             ]
         );
         file_put_contents($dst_file, $xml);
