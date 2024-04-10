@@ -7,38 +7,29 @@ Final normalization
   <!-- set by caller -->
   <xsl:param name="filename"/>
   <!-- where to find the greek version -->
-  <xsl:param name="grc_dir">https://galenus-verbatim.github.io/galenus_cts/data/</xsl:param>
+  <xsl:param name="dir">../galenus_cts/data/</xsl:param>
   <!-- Build the tlg path -->
-  <xsl:param name="grc_file">
-    <xsl:value-of select="$grc_dir"/>
+  <xsl:param name="dst_file">
+    <xsl:value-of select="$dir"/>
     <xsl:value-of select="substring-before($filename, '.')"/>
     <xsl:text>/</xsl:text>
     <xsl:value-of select="substring-before(substring-after($filename, '.'), '.')"/>
     <xsl:text>/</xsl:text>
-    <xsl:choose>
-      <xsl:when test="contains($filename, '-lat')">
-        <xsl:value-of select="substring-before($filename, 'verbatim-lat')"/>
-        <xsl:text>1st1K-grc</xsl:text>
-        <xsl:value-of select="substring-after($filename, '-lat')"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:value-of select="$filename"/>
-      </xsl:otherwise>
-    </xsl:choose>
+    <xsl:value-of select="$filename"/>
     <xsl:text>.xml</xsl:text>
   </xsl:param>
   <!-- load grc -->
-  <xsl:variable name="grc" select="document($grc_file)"/>
+  <xsl:variable name="xml" select="document($dst_file)"/>
   <!-- store first page number as global -->
-  <xsl:variable name="p1" select="$grc/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc//tei:biblScope[@unit='pp']/@from"/>
+  <xsl:variable name="p1" select="$xml/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc//tei:biblScope[@unit='pp']/@from"/>
   <!-- store volume number as global (will bug on big texts) -->
-  <xsl:variable name="vol" select="$grc/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc//tei:biblScope[@unit='vol']"/>
+  <xsl:variable name="vol" select="$xml/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc//tei:biblScope[@unit='vol']"/>
   <!-- body/head, it is a book -->
   <xsl:variable name="body_head" select="count(/tei:TEI/tei:text/tei:body/tei:head)"/>
   <!-- store level 1 div subtype  -->
   <xsl:variable name="subtype1" select=' "book" '/>
   <xsl:variable name="subtype2" select=' "chapter" '/>
-  <xsl:variable name="subtype3" select="$grc/tei:TEI/tei:text/tei:body/tei:div/tei:div/tei:div/tei:div/@subtype"/>
+  <xsl:variable name="subtype3" select="$xml/tei:TEI/tei:text/tei:body/tei:div/tei:div/tei:div/tei:div/@subtype"/>
   <xsl:variable name="subtype4" select=' "littera" '/>
   <xsl:variable name="lf" select="'&#10;'"/>
   <xsl:template match="node()|@*" name="copy">
@@ -46,36 +37,9 @@ Final normalization
       <xsl:apply-templates select="node()|@*"/>
     </xsl:copy>
   </xsl:template>
-  <xsl:template match="tei:idno">
-    <xsl:copy>
-      <xsl:copy-of select="@*"/>
-      <xsl:value-of select="$filename"/>
-      <xsl:text>.xml</xsl:text>
-    </xsl:copy>
-  </xsl:template>
-  <xsl:template match="tei:fileDesc/tei:titleStmt/tei:title">
-    <!-- Copy title from greek -->
-    <xsl:copy-of select="$grc/tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:title"/>
-  </xsl:template>
-  <xsl:template match="tei:sourceDesc">
-    <xsl:copy>
-      <xsl:value-of select="@*"/>
-      <!-- Process sourceDesc content from greek (things have to be filtered) -->
-      <xsl:apply-templates select="$grc/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/node()"/>
-    </xsl:copy>
-  </xsl:template>
-  <!-- rewrite the link to digital source for latin -->
-  <xsl:template match="tei:sourceDesc/tei:biblStruct[1]">
-    <xsl:copy>
-      <xsl:copy-of select="@*"/>
-      <xsl:variable name="vol" select="normalize-space(.//tei:biblScope[@unit='vol'])"/>
-      <xsl:variable name="vol_url">
-        <xsl:value-of select="substring('00', 1, 2 - string-length($vol))"/>
-        <xsl:value-of select="$vol"/>
-      </xsl:variable>
-      <xsl:apply-templates select="node()[not(self::tei:ref)]"/>
-      <ref target="https://www.biusante.parisdescartes.fr/histmed/medica/cote?45674x{$vol_url}">BIU Santé, Medica</ref>
-    </xsl:copy>
+
+  <xsl:template match="tei:teiHeader">
+    <xsl:copy-of select="$xml/tei:TEI/tei:teiHeader"/>
   </xsl:template>
   <!-- body -->
   <xsl:template match="tei:body">
@@ -151,11 +115,15 @@ Final normalization
     </div>
   </xsl:template>
   <xsl:template match="tei:pb">
+    <xsl:variable name="n">
+      <xsl:number level="any"/>
+    </xsl:variable>
+    <xsl:value-of select="$lf"/>
     <pb>
       <xsl:attribute name="n">
         <xsl:value-of select="$vol"/>
         <xsl:text>.</xsl:text>
-        <xsl:value-of select="$p1 + @n - 1"/>
+        <xsl:value-of select="$p1 + $n - 1"/>
       </xsl:attribute>
     </pb>
   </xsl:template>
@@ -195,6 +163,7 @@ Final normalization
     </xsl:for-each>
   </xsl:template>
   <!-- Para full italic, are verses (lg/l), expect text() and <lb/> only -->
+  <!--
   <xsl:template match="tei:p[tei:hi][count(*)=1][not(text()[normalize-space(.) != ''])]">
     <lg>
       <xsl:for-each select="tei:hi/node()">
@@ -209,7 +178,9 @@ Final normalization
             </l>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:message>Para in italic, someting else than text() and line-break</xsl:message>
+            <xsl:message>Para in italic, someting else than text() and line-break
+            <xsl:copy-of select="."/>
+            </xsl:message>
             <xsl:value-of select="$lf"/>
             <xsl:copy-of select="."/>
           </xsl:otherwise>
@@ -218,6 +189,7 @@ Final normalization
       <xsl:value-of select="$lf"/>
     </lg>
   </xsl:template>
+  -->
   <!-- Epidoc specific -->
   <xsl:template match="tei:hi[@rend='sup']">
     <hi rend="superscript">
@@ -236,6 +208,7 @@ Final normalization
   </xsl:template>
   
   <!-- Strange list table -->
+  <!--
   <xsl:template match="tei:table">
     <list rend="table">
       <xsl:copy-of select="@*"/>
@@ -272,4 +245,5 @@ Final normalization
       <xsl:apply-templates/>
     </item>
   </xsl:template>
+  -->
 </xsl:transform>

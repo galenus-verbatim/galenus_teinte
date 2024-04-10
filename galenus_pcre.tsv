@@ -5,13 +5,22 @@ search	replace	?comment
 
 <p[^>]*>(<milestone [^>]*/>)</p>	\1	false para for milestrone
 
+</?b>		No bold here
 
+
+
+
+\n\n+	\n
+
+</hi>([\p{L} \-]{1,3})<hi>	$1	italics
+(\p{L})<hi>([\p{L}]{1,3})</hi>	$1$2
+<hi>([\p{L}]{1,3})</hi>(\p{L})	$1$2
+<hi>([\p{L}]{1,3})</hi>	$1
+([\p{L}]{1,})<hi>([\p{L}]{3,})	<hi>$1$2
+# ([\. ;:?, \s]+)(</hi>)	$2$1
+</hi>([\p{L} ,\.]{1,4})<hi>	$1
+</hi>(\s*<lb/>\s*)<hi>	$1
 
 [——\-]\s*</p>\s*(<pb[^>]*/>)\s*<p[^>]*> *([^<>\s]+) *	\2\n\1\n<lb/>	caesura around a page break, take end of word, but tag  bro-</p><pb/>ken<milestone/>continue => broken<pb/><milestone/>continue
 
 </p>\s*(<pb[^/>]*/>)\s*<p( [^>/]*)?>	\1\n<lb/>	merge <p> around <pb> (galenus specific), be careful of empty para <p/>
-
-\n\n+	\n
-
-</hi>([\p{L} ]{0,3})<hi>	$1
-<hi>([\p{L} ]{0,3})</hi>	$1
