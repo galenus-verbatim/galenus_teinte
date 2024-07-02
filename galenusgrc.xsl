@@ -46,9 +46,8 @@ Final normalization
   </xsl:template>
   <xsl:template match="tei:idno">
     <xsl:copy>
-      <xsl:value-of select="@*"/>
+      <xsl:text>urn:cts:greekLit:</xsl:text>
       <xsl:value-of select="$filename"/>
-      <xsl:text>.xml</xsl:text>
     </xsl:copy>
   </xsl:template>
   <xsl:template match="tei:fileDesc/tei:titleStmt/tei:title">
@@ -262,4 +261,5 @@ Final normalization
       <xsl:apply-templates/>
     </item>
   </xsl:template>
+  <xsl:template match="tei:meta"/>
 </xsl:transform>

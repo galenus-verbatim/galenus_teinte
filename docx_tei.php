@@ -3,7 +3,7 @@
 include_once(__DIR__ . '/vendor/autoload.php');
 
 use Psr\Log\LogLevel;
-use Oeuvres\Kit\{Filesys, Log, Parse, Xt};
+use Oeuvres\Kit\{Filesys, Log, Xt};
 use Oeuvres\Kit\Logger\{LoggerCli};
 use Oeuvres\Teinte\Format\{Docx};
 use Oeuvres\Xsl\{Xpack};
@@ -23,7 +23,6 @@ $source = new Docx();
 // local xml template
 $source->user_template(__DIR__ . '/galenus_tmpl_lat.xml');
 // regex program to insert
-$preg = Parse::pcre_tsv(__DIR__ . '/galenus_pcre.tsv');
 $source->user_pcre(__DIR__ . '/galenus_pcre.tsv');
 $force = true;
 // loop on arguments to get files of globs
@@ -40,14 +39,13 @@ foreach ($argv as $glob) {
         Log::info($docx_file . " > " . $dst_file);
         $source->open($docx_file);
         // for debug
-        $source->pkg(); // load the docx
+        $source->pkg(); // open the docx
         $source->teilike(); // apply a first tei layer
         file_put_contents($tmp_dir . $src_name .'_teilike.xml', $source->teiXML());
         $source->pcre(); // apply regex, custom re may break XML
         // for debug write this step
         file_put_contents($tmp_dir . $src_name .'_pcre.xml', $source->teiXML());
         $source->tmpl();
-        /*
         $grc_file = dirname(__DIR__) . '/galenus_cts/data/' . $split[0] . '/' . $split[1] . '/' . str_replace('verbatim-lat', '1st1K-grc', $src_name) .'.xml';
         if (!file_exists($grc_file)) {
             $grc_file = dirname(__DIR__) . '/galenus_cts/data/' . $split[0] . '/' . $split[1] . '/' . str_replace('verbatim-lat', 'verbatim-grc', $src_name)  .'.xml';
@@ -60,14 +58,13 @@ foreach ($argv as $glob) {
             unlink($dst_file);
             continue;
         }
-        */
         // finalize with personal xslt
         $xml = Xt::transformToXml(
-            __DIR__ . '/galenus_lat.xsl',
+            __DIR__ . '/galenusgrc.xsl',
             $source->teiDOM(),
             [
                 'filename' => $src_name,
-                'dst_file' => 'file:///' . str_replace('\\', '/', $dst_file),
+                'grc_file' => 'file:///' . str_replace('\\', '/', $grc_file),
             ]
         );
         file_put_contents($dst_file, $xml);
